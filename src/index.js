@@ -11,11 +11,12 @@ const app = express();
 // MIDDLEWARES
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static(path.join(__dirname, 'public/')));
+app.use(express.static(path.join(__dirname, '../public/')));
 
 // RUTAS
 app.use('/', rutas);
 app.use('/api/personas', personaRutas)
+
 // MANEJO DE ERRORES
 app.use((err, req, res, next) => {
      console.log(err)

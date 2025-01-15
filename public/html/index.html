@@ -6,11 +6,42 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
      <link href="" rel="stylesheet" />
      <title>Desarrollo WEB - VG</title>
+     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-     <h1>CURSO DE DESARROLLO WEB</h1>
-     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere ducimus recusandae, quis autem fugiat sint.</p>
+<body class="bg-gray-100 text-gray-800 h-screen flex flex-col">
+     <!-- Navbar -->
+
+     <nav class="bg-blue-600 text-white shadow">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+               <div class="flex justify-between h-16">
+                    <div class="flex">
+                         <a href="/" class="flex-shrink-0 flex items-center">
+                              <img src="img/ValleGrande.jpg" alt="Logo" class="h-8 w-8">
+                              <span class="ml-2 font-bold text-xl">Curso de Desarrollo Web</span>
+                         </a>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-4">
+                         <a href="/"
+                              class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium">Inicio</a>
+                         <a href="/personas"
+                              class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium">Personas</a>
+                    </div>
+               </div>
+          </div>
+     </nav>
+
+     <!-- MAIN CONTENT -->
+     <main class="flex-grow flex items-center justify-center bg-gray-100">
+          <div class="text-center">
+               <h1 class="text-4xl font-bold text-blue-700">¡BIENVENIDOS AL CURSO DE DESARROLLO WEB!</h1>
+               <p class="mt-4 text-lg text-gray-700">Aprende a crear aplicaciones web profesionales con las tecnologías
+                    más modernas.
+               </p>
+               <a href="/personas"
+                    class="mt-6 inline-block px-6 py-3 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 transition">Empezar</a>
+          </div>
+     </main>
 </body>
 
 </html>
