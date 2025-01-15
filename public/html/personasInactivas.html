@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <link href="" rel="stylesheet" />
+     <title>Desarrollo WEB - VG</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900">
+     <!-- Navbar -->
+
+     <nav class="bg-blue-600 text-white shadow">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+               <div class="flex justify-between h-16">
+                    <div class="flex">
+                         <a href="/" class="flex-shrink-0 flex items-center">
+                              <img src="img/ValleGrande.jpg" alt="Logo" class="h-8 w-8">
+                              <span class="ml-2 font-bold text-xl">Curso de Desarrollo Web</span>
+                         </a>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-4">
+                         <a href="/"
+                              class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium">Inicio</a>
+                         <a href="/personas"
+                              class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium">Personas</a>
+                         <a href="/personasInactivas"
+                              class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium">Personas
+                              Inactivas</a>
+                    </div>
+               </div>
+          </div>
+     </nav>
+
+     <!-- MAIN CONTENT -->
+     <main class="container mx-auto mt-6">
+          <!-- TABLA -->
+          <div class="bg-white shadow-md rounded-lg p-6">
+               <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold">Lista de Personas Inactivas</h2>
+               </div>
+               <table class="min-w-full table-auto border-collapse border border-gray-200">
+                    <thead>
+                         <tr class="bg-gray-200">
+                              <th class="border px-4 py-2">ID</th>
+                              <th class="border px-4 py-2">Nombres</th>
+                              <th class="border px-4 py-2">Apellidos</th>
+                              <th class="border px-4 py-2">Tipo Doc.</th>
+                              <th class="border px-4 py-2">Num Doc.</th>
+                              <th class="border px-4 py-2">Celular</th>
+                              <th class="border px-4 py-2">Correo</th>
+                              <th class="border px-4 py-2">Fecha Nac.</th>
+                              <th class="border px-4 py-2">Estado</th>
+                              <th class="border px-4 py-2">Acciones</th>
+                         </tr>
+                    </thead>
+                    <tbody id="tablaPersonasInactivas" class="text-center">
+                         <!-- VACIO (RELLENAR CON LA API) -->
+                    </tbody>
+               </table>
+          </div>
+     </main>
+
+
+     <script src="js/personasInactivas.js"></script>
+</body>
+
+</html>

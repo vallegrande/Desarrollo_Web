@@ -200,6 +200,5 @@ router.put("/restaurar/:id", (req, res) => {
      });
 });
 
-// MÉTODO DE RESTAURAR
 
 module.exports = router;
