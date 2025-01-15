@@ -13,20 +13,20 @@ document.addEventListener("DOMContentLoaded", () => {
                personas.forEach((persona) => {
                     const fila = document.createElement("tr");
                     fila.innerHTML = `
-                    <td class="border px-4 py-2">${persona.id}</td>
-                    <td class="border px-4 py-2">${persona.nombres}</td>
-                    <td class="border px-4 py-2">${persona.apellidos}</td>
-                    <td class="border px-4 py-2">${persona.tipo_doc}</td>
-                    <td class="border px-4 py-2">${persona.num_doc}</td>
-                    <td class="border px-4 py-2">${persona.celular}</td>
-                    <td class="border px-4 py-2">${persona.correo}</td>
-                    <td class="border px-4 py-2">${persona.fecha_nacimiento}</td>
-                    <td class="border px-4 py-2">${persona.estado}</td>
-                    <td class="border px-4 py-2">
-                        <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-2 rounded btnEditar" data-id="${persona.id}">Editar</button>
-                        <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded btnEliminar" data-id="${persona.id}">Eliminar</button>
-                    </td>
-                `;
+                <td class="border px-4 py-2">${persona.id}</td>
+                <td class="border px-4 py-2">${persona.nombres}</td>
+                <td class="border px-4 py-2">${persona.apellidos}</td>
+                <td class="border px-4 py-2">${persona.tipo_doc}</td>
+                <td class="border px-4 py-2">${persona.num_doc}</td>
+                <td class="border px-4 py-2">${persona.celular}</td>
+                <td class="border px-4 py-2">${persona.correo}</td>
+                <td class="border px-4 py-2">${persona.fecha_nacimiento}</td>
+                <td class="border px-4 py-2">${persona.estado}</td>
+                <td class="border px-4 py-2">
+                    <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-2 rounded btnEditar" data-id="${persona.id}">Editar</button>
+                    <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded btnEliminar" data-id="${persona.id}">Eliminar</button>
+                </td>
+            `;
                     tablaPersonas.appendChild(fila);
                });
 
@@ -52,10 +52,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
      // Cerrar modal de agregar
      document.getElementById("btnCancelar").addEventListener("click", () => {
+          // Limpiar los bordes rojos
+          document.getElementById("nombres").classList.remove("border-red-500");
+          document.getElementById("apellidos").classList.remove("border-red-500");
+          document.getElementById("numDoc").classList.remove("border-red-500");
+          document.getElementById("celular").classList.remove("border-red-500");
+          document.getElementById("correo").classList.remove("border-red-500");
+          document.getElementById("fechaNacimiento").classList.remove("border-red-500");
+
+          // Ocultar los mensajes de error
+          document.getElementById("errorNombres").classList.add("hidden");
+          document.getElementById("errorApellidos").classList.add("hidden");
+          document.getElementById("errorNumDoc").classList.add("hidden");
+          document.getElementById("errorCelular").classList.add("hidden");
+          document.getElementById("errorFechaNacimiento").classList.add("hidden");
+
+          // Limpiar los campos del formulario (opcional, si quieres vaciar los campos al cancelar)
+          document.getElementById("formPersona").reset();
           document.getElementById("modalPersona").classList.add("hidden");
      });
 
-     // ENVIAR DATOS DE LA PERSONA
      document.getElementById("formPersona").addEventListener("submit", async (e) => {
           e.preventDefault();
 
@@ -66,6 +82,91 @@ document.addEventListener("DOMContentLoaded", () => {
           const celular = document.getElementById("celular").value;
           const correo = document.getElementById("correo").value;
           const fechaNacimiento = document.getElementById("fechaNacimiento").value;
+
+          // Validaciones
+          let formIsValid = true;
+
+          // Validar nombres
+          const nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚÑñ\s]+$/;
+          if (!nombres || !nombreRegex.test(nombres)) {
+               document.getElementById("nombres").classList.add("border-red-500");
+               document.getElementById("errorNombres").classList.remove("hidden");
+               formIsValid = false;
+          } else {
+               document.getElementById("nombres").classList.remove("border-red-500");
+               document.getElementById("errorNombres").classList.add("hidden");
+          }
+
+          // Validar apellidos
+          if (!apellidos || !nombreRegex.test(apellidos)) {
+               document.getElementById("apellidos").classList.add("border-red-500");
+               document.getElementById("errorApellidos").classList.remove("hidden");
+               formIsValid = false;
+          } else {
+               document.getElementById("apellidos").classList.remove("border-red-500");
+               document.getElementById("errorApellidos").classList.add("hidden");
+          }
+
+          // Validar número de documento
+          let numDocRegex;
+          if (tipoDoc === "DNI") {
+               numDocRegex = /^\d{8}$/; // 8 dígitos numéricos para DNI
+          } else if (tipoDoc === "CNE") {
+               numDocRegex = /^[a-zA-Z0-9]{15}$/; // 15 caracteres alfanuméricos para CNE
+          }
+
+          if (!numDoc || !numDocRegex.test(numDoc)) {
+               document.getElementById("numDoc").classList.add("border-red-500");
+               document.getElementById("errorNumDoc").classList.remove("hidden");
+               formIsValid = false;
+          } else {
+               document.getElementById("numDoc").classList.remove("border-red-500");
+               document.getElementById("errorNumDoc").classList.add("hidden");
+          }
+
+          // Validar celular
+          const celularRegex = /^9\d{8}$/; // Celular que debe empezar con 9 y luego 8 dígitos
+          if (!celular || !celularRegex.test(celular)) {
+               document.getElementById("celular").classList.add("border-red-500");
+               document.getElementById("errorCelular").classList.remove("hidden");
+               formIsValid = false;
+          } else {
+               document.getElementById("celular").classList.remove("border-red-500");
+               document.getElementById("errorCelular").classList.add("hidden");
+          }
+
+          // Validar correo
+          const correoRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          if (!correo || !correoRegex.test(correo)) {
+               document.getElementById("correo").classList.add("border-red-500");
+               document.getElementById("errorCorreo").classList.remove("hidden");
+               formIsValid = false;
+          } else {
+               document.getElementById("correo").classList.remove("border-red-500");
+               document.getElementById("errorCorreo").classList.add("hidden");
+          }
+
+          // Validar fecha de nacimiento
+          const today = new Date();
+          const birthDate = new Date(fechaNacimiento);
+          if (birthDate >= today) {
+               document.getElementById("fechaNacimiento").classList.add("border-red-500");
+               document.getElementById("errorFechaNacimiento").classList.remove("hidden");
+               formIsValid = false;
+          } else {
+               document.getElementById("fechaNacimiento").classList.remove("border-red-500");
+               document.getElementById("errorFechaNacimiento").classList.add("hidden");
+          }
+
+          // Si alguna validación falla, no enviamos los datos
+          if (!formIsValid) {
+               Swal.fire({
+                    icon: 'error',
+                    title: 'Formulario inválido',
+                    text: 'Por favor, corrige los errores en el formulario.',
+               });
+               return;
+          }
 
           const persona = {
                nombres,
@@ -87,16 +188,106 @@ document.addEventListener("DOMContentLoaded", () => {
                });
 
                if (response.ok) {
-                    alert("Persona agregada correctamente");
+                    Swal.fire({
+                         icon: 'success',
+                         title: 'Persona agregada',
+                         text: 'La persona fue agregada correctamente',
+                    });
                     cargarActivos();
                     document.getElementById("modalPersona").classList.add("hidden");
                } else {
                     const errorData = await response.json();
-                    alert(`Error: ${errorData.error}`);
+                    Swal.fire({
+                         icon: 'error',
+                         title: 'Error',
+                         text: `Error: ${errorData.error}`,
+                    });
                }
           } catch (error) {
                console.error("Error al enviar datos", error);
-               alert("Error al agregar persona");
+               Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al agregar persona',
+               });
+          }
+     });
+
+     // Validaciones en tiempo real
+     document.getElementById("nombres").addEventListener("input", () => {
+          const nombres = document.getElementById("nombres").value;
+          const nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚÑñ\s]+$/;
+          if (!nombreRegex.test(nombres)) {
+               document.getElementById("nombres").classList.add("border-red-500");
+               document.getElementById("errorNombres").classList.remove("hidden");
+          } else {
+               document.getElementById("nombres").classList.remove("border-red-500");
+               document.getElementById("errorNombres").classList.add("hidden");
+          }
+     });
+
+     document.getElementById("apellidos").addEventListener("input", () => {
+          const apellidos = document.getElementById("apellidos").value;
+          const nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚÑñ\s]+$/;
+          if (!nombreRegex.test(apellidos)) {
+               document.getElementById("apellidos").classList.add("border-red-500");
+               document.getElementById("errorApellidos").classList.remove("hidden");
+          } else {
+               document.getElementById("apellidos").classList.remove("border-red-500");
+               document.getElementById("errorApellidos").classList.add("hidden");
+          }
+     });
+
+     document.getElementById("numDoc").addEventListener("input", () => {
+          const numDoc = document.getElementById("numDoc").value;
+          const tipoDoc = document.getElementById("tipoDoc").value;
+          let numDocRegex;
+          if (tipoDoc === "DNI") {
+               numDocRegex = /^\d{8}$/;
+          } else if (tipoDoc === "CNE") {
+               numDocRegex = /^[a-zA-Z0-9]{15}$/;
+          }
+          if (!numDocRegex.test(numDoc)) {
+               document.getElementById("numDoc").classList.add("border-red-500");
+               document.getElementById("errorNumDoc").classList.remove("hidden");
+          } else {
+               document.getElementById("numDoc").classList.remove("border-red-500");
+               document.getElementById("errorNumDoc").classList.add("hidden");
+          }
+     });
+
+     document.getElementById("celular").addEventListener("input", () => {
+          const celular = document.getElementById("celular").value;
+          const celularRegex = /^9\d{8}$/;
+          if (!celularRegex.test(celular)) {
+               document.getElementById("celular").classList.add("border-red-500");
+               document.getElementById("errorCelular").classList.remove("hidden");
+          } else {
+               document.getElementById("celular").classList.remove("border-red-500");
+               document.getElementById("errorCelular").classList.add("hidden");
+          }
+     });
+
+     document.getElementById("correo").addEventListener("input", () => {
+          const correo = document.getElementById("correo").value;
+          const correoRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          if (!correoRegex.test(correo)) {
+               document.getElementById("correo").classList.add("border-red-500");
+          } else {
+               document.getElementById("correo").classList.remove("border-red-500");
+          }
+     });
+
+     document.getElementById("fechaNacimiento").addEventListener("input", () => {
+          const fechaNacimiento = document.getElementById("fechaNacimiento").value;
+          const today = new Date();
+          const birthDate = new Date(fechaNacimiento);
+          if (birthDate >= today) {
+               document.getElementById("fechaNacimiento").classList.add("border-red-500");
+               document.getElementById("errorFechaNacimiento").classList.remove("hidden");
+          } else {
+               document.getElementById("fechaNacimiento").classList.remove("border-red-500");
+               document.getElementById("errorFechaNacimiento").classList.add("hidden");
           }
      });
 
@@ -157,16 +348,28 @@ document.addEventListener("DOMContentLoaded", () => {
                });
 
                if (response.ok) {
-                    alert("Persona actualizada correctamente");
+                    Swal.fire({
+                         icon: 'success',
+                         title: 'Persona actualizada',
+                         text: 'La persona fue actualizada correctamente',
+                    });
                     cargarActivos();
                     document.getElementById("modalEditarPersona").classList.add("hidden");
                } else {
                     const errorData = await response.json();
-                    alert(`Error: ${errorData.error}`);
+                    Swal.fire({
+                         icon: 'error',
+                         title: 'Error',
+                         text: `Error: ${errorData.error}`,
+                    });
                }
           } catch (error) {
                console.error("Error al guardar cambios", error);
-               alert("Error al actualizar persona");
+               Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al actualizar persona',
+               });
           }
      });
 
@@ -177,20 +380,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
      // Eliminar persona
      const eliminarPersona = async (id) => {
-          if (confirm("¿Está seguro de que desea eliminar esta persona?")) {
+          const result = await Swal.fire({
+               title: '¿Está seguro de que desea eliminar esta persona?',
+               text: "¡Esta acción no se puede deshacer!",
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonText: 'Sí, eliminar',
+               cancelButtonText: 'Cancelar',
+          });
+
+          if (result.isConfirmed) {
                try {
                     const response = await fetch(`/api/personas/eliminar/${id}`, {
                          method: "PUT",
                     });
 
                     if (response.ok) {
-                         alert("Persona eliminada correctamente");
+                         Swal.fire({
+                              icon: 'success',
+                              title: 'Persona eliminada',
+                              text: 'La persona fue eliminada correctamente',
+                         });
                          cargarActivos();
                     } else {
-                         alert("Error al eliminar persona");
+                         Swal.fire({
+                              icon: 'error',
+                              title: 'Error',
+                              text: 'Error al eliminar persona',
+                         });
                     }
                } catch (error) {
                     console.error("Error al eliminar persona", error);
+                    Swal.fire({
+                         icon: 'error',
+                         title: 'Error',
+                         text: 'Error al eliminar persona',
+                    });
                }
           }
      };

@@ -53,7 +53,6 @@ const cargarInactivos = async () => {
         `;
      }
 };
-
 const restaurarPersona = async (id) => {
      try {
           const response = await fetch(`/api/personas/restaurar/${id}`, {
@@ -63,13 +62,29 @@ const restaurarPersona = async (id) => {
                throw new Error("Error al restaurar la persona");
           }
           const data = await response.json();
-          alert(data.message);
-          cargarInactivos(); // Recargar la lista después de restaurar
+
+          // Usar SweetAlert para mostrar un mensaje de éxito
+          Swal.fire({
+               title: "¡Restaurado!",
+               text: data.message,
+               icon: "success",
+               confirmButtonText: "Aceptar",
+          }).then(() => {
+               cargarInactivos(); // Recargar la lista después de restaurar
+          });
      } catch (error) {
           console.error(error);
-          alert("Error al intentar restaurar la persona");
+
+          // Usar SweetAlert para mostrar un mensaje de error
+          Swal.fire({
+               title: "Error",
+               text: "Error al intentar restaurar la persona",
+               icon: "error",
+               confirmButtonText: "Aceptar",
+          });
      }
 };
+
 
 // Cargar la lista de personas inactivas al iniciar
 document.addEventListener("DOMContentLoaded", () => {

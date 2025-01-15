@@ -7,6 +7,9 @@
      <link href="" rel="stylesheet" />
      <title>Desarrollo WEB - VG</title>
      <script src="https://cdn.tailwindcss.com"></script>
+     <link href="
+          https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.min.css
+          " rel="stylesheet">
 </head>
 
 <body class="bg-gray-100 text-gray-900">
@@ -68,43 +71,63 @@
 
      <!-- Modal para agregar persona -->
      <div id="modalPersona" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-          <div class="bg-white rounded-lg shadow-md p-6 w-full max-w-lg">
+          <div class="bg-white rounded-lg shadow-md p-6 w-full max-w-3xl">
                <h3 id="modalTitulo" class="text-lg font-bold mb-4">Agregar Persona</h3>
                <form id="formPersona">
                     <input id="idPersona" type="hidden" />
-
-                    <div class="mb-4">
-                         <label class="block text-sm font-medium">Nombres</label>
-                         <input id="nombres" type="text" class="w-full border rounded px-3 py-2" required />
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                         <div>
+                              <label class="block text-sm font-medium">Nombres</label>
+                              <input id="nombres" type="text" class="w-full border rounded px-3 py-2" required />
+                              <p id="errorNombres" class="text-red-500 text-sm hidden">El campo nombres solo acepta
+                                   letras</p>
+                         </div>
+                         <div>
+                              <label class="block text-sm font-medium">Apellidos</label>
+                              <input id="apellidos" type="text" class="w-full border rounded px-3 py-2" required />
+                              <p id="errorApellidos" class="text-red-500 text-sm hidden">El campo apellidos solo acepta
+                                   letras, mayúsculas, minúsculas, tildes y la letra ñ.</p>
+                         </div>
                     </div>
-                    <div class="mb-4">
-                         <label class="block text-sm font-medium">Apellidos</label>
-                         <input id="apellidos" type="text" class="w-full border rounded px-3 py-2" required />
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                         <div>
+                              <label class="block text-sm font-medium">Tipo Documento</label>
+                              <select id="tipoDoc" class="w-full border rounded px-3 py-2">
+                                   <option value="DNI">DNI</option>
+                                   <option value="CNE">CNE</option>
+                              </select>
+                         </div>
+                         <div>
+                              <label class="block text-sm font-medium">Número Documento</label>
+                              <input id="numDoc" type="text" class="w-full border rounded px-3 py-2" required />
+                              <p id="errorNumDoc" class="text-red-500 text-sm hidden">El número de documento debe tener
+                                   8
+                                   dígitos para DNI y 15 dígitos para CNE.</p>
+                         </div>
                     </div>
-                    <div class="mb-4">
-                         <label class="block text-sm font-medium">Tipo Documento</label>
-                         <select id="tipoDoc" class="w-full border rounded px-3 py-2">
-                              <option value="DNI">DNI</option>
-                              <option value="CNE">CNE</option>
-                         </select>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                         <div>
+                              <label class="block text-sm font-medium">Celular</label>
+                              <input id="celular" type="text" class="w-full border rounded px-3 py-2" required />
+                              <p id="errorCelular" class="text-red-500 text-sm hidden">El celular debe contener 9
+                                   números y
+                                   comenzar con 9.</p>
+                         </div>
+                         <div>
+                              <label class="block text-sm font-medium">Correo</label>
+                              <input id="correo" type="email" class="w-full border rounded px-3 py-2" required />
+                         </div>
                     </div>
-                    <div class="mb-4">
-                         <label class="block text-sm font-medium">Número Documento</label>
-                         <input id="numDoc" type="text" class="w-full border rounded px-3 py-2" required />
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                         <div>
+                              <label class="block text-sm font-medium">Fecha Nacimiento</label>
+                              <input id="fechaNacimiento" type="date" class="w-full border rounded px-3 py-2"
+                                   required />
+                              <p id="errorFechaNacimiento" class="text-red-500 text-sm hidden">La fecha de nacimiento no
+                                   puede ser posterior a la fecha actual.</p>
+                         </div>
                     </div>
-                    <div class="mb-4">
-                         <label class="block text-sm font-medium">Celular</label>
-                         <input id="celular" type="text" class="w-full border rounded px-3 py-2" required />
-                    </div>
-                    <div class="mb-4">
-                         <label class="block text-sm font-medium">Correo</label>
-                         <input id="correo" type="email" class="w-full border rounded px-3 py-2" required />
-                    </div>
-                    <div class="mb-4">
-                         <label class="block text-sm font-medium">Fecha Nacimiento</label>
-                         <input id="fechaNacimiento" type="date" class="w-full border rounded px-3 py-2" required />
-                    </div>
-                    <div class="mb-4 flex justify-end">
+                    <div class="flex justify-end mt-4">
                          <button type="button" id="btnCancelar"
                               class="mr-2 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">Cancelar</button>
                          <button type="submit" id="btnGuardar"
@@ -113,6 +136,8 @@
                </form>
           </div>
      </div>
+
+
 
      <!-- Modal para editar persona -->
      <div id="modalEditarPersona"
@@ -163,7 +188,9 @@
                </form>
           </div>
      </div>
-
+     <script src="
+     https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.all.min.js
+     "></script>
      <script src="js/crud.js"></script>
 </body>
 
