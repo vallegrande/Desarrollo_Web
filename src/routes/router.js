@@ -11,4 +11,8 @@ router.get('/personas', (req, res) => {
      res.sendFile(path.join(__dirname, '../../public/html/personas.html'))
 });
 
+router.get('/personasInactivas', (req, res) => {
+     res.sendFile(path.join(__dirname, '../../public/html/personasInactivas.html'))
+});
+
 module.exports = router;

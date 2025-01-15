@@ -26,6 +26,9 @@
                               class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium">Inicio</a>
                          <a href="/personas"
                               class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium">Personas</a>
+                         <a href="/personasInactivas"
+                              class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium">Personas
+                              Inactivas</a>
                     </div>
                </div>
           </div>
@@ -62,10 +65,14 @@
                </table>
           </div>
      </main>
+
+     <!-- Modal para agregar persona -->
      <div id="modalPersona" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
           <div class="bg-white rounded-lg shadow-md p-6 w-full max-w-lg">
                <h3 id="modalTitulo" class="text-lg font-bold mb-4">Agregar Persona</h3>
                <form id="formPersona">
+                    <input id="idPersona" type="hidden" />
+
                     <div class="mb-4">
                          <label class="block text-sm font-medium">Nombres</label>
                          <input id="nombres" type="text" class="w-full border rounded px-3 py-2" required />
@@ -106,6 +113,57 @@
                </form>
           </div>
      </div>
+
+     <!-- Modal para editar persona -->
+     <div id="modalEditarPersona"
+          class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+          <div class="bg-white rounded-lg shadow-md p-6 w-full max-w-lg">
+               <h3 class="text-lg font-bold mb-4">Editar Persona</h3>
+               <form id="formEditarPersona">
+                    <input id="idPersonaEditar" type="hidden" />
+
+                    <div class="mb-4">
+                         <label class="block text-sm font-medium">Nombres</label>
+                         <input id="nombresEditar" type="text" class="w-full border rounded px-3 py-2" required />
+                    </div>
+                    <div class="mb-4">
+                         <label class="block text-sm font-medium">Apellidos</label>
+                         <input id="apellidosEditar" type="text" class="w-full border rounded px-3 py-2" required />
+                    </div>
+                    <div class="mb-4">
+                         <label class="block text-sm font-medium">Tipo Documento</label>
+                         <select id="tipoDocEditar" class="w-full border rounded px-3 py-2">
+                              <option value="DNI">DNI</option>
+                              <option value="CNE">CNE</option>
+                         </select>
+                    </div>
+                    <div class="mb-4">
+                         <label class="block text-sm font-medium">Número Documento</label>
+                         <input id="numDocEditar" type="text" class="w-full border rounded px-3 py-2" required />
+                    </div>
+                    <div class="mb-4">
+                         <label class="block text-sm font-medium">Celular</label>
+                         <input id="celularEditar" type="text" class="w-full border rounded px-3 py-2" required />
+                    </div>
+                    <div class="mb-4">
+                         <label class="block text-sm font-medium">Correo</label>
+                         <input id="correoEditar" type="email" class="w-full border rounded px-3 py-2" required />
+                    </div>
+                    <div class="mb-4">
+                         <label class="block text-sm font-medium">Fecha Nacimiento</label>
+                         <input id="fechaNacimientoEditar" type="date" class="w-full border rounded px-3 py-2"
+                              required />
+                    </div>
+                    <div class="mb-4 flex justify-end">
+                         <button type="button" id="btnCancelarEditar"
+                              class="mr-2 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">Cancelar</button>
+                         <button type="submit" id="btnGuardarEditar"
+                              class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Guardar</button>
+                    </div>
+               </form>
+          </div>
+     </div>
+
      <script src="js/crud.js"></script>
 </body>
 

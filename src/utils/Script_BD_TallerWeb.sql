@@ -25,5 +25,5 @@ INSERT INTO persona (nombres, apellidos, tipo_doc, num_doc, celular, correo, fec
 ('Carlos', 'Gómez', 'DNI', '01345784', '997766554', 'carlos.gomez@hotmail.com', STR_TO_DATE('15/11/1992', '%d/%m/%Y'), 'I');
 
 SELECT * FROM persona;
-
+UPDATE Persona SET estado = 'A' WHERE id = 1;
 SELECT id, nombres, apellidos, tipo_doc, num_doc, celular, correo, DATE_FORMAT(fecha_nacimiento, '%d - %b - %Y') AS fecha_nacimiento, estado FROM persona WHERE estado = 'A';
